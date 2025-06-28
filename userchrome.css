@@ -1,0 +1,327 @@
+/*****************************************************************************
+ * Son of Obsidian Theme for Joplin                                         *
+ * Optimized and organized CSS for the entire Joplin app interface          *
+ * (excludes rendered Markdown - see userstyle.css)                         *
+ *****************************************************************************/
+
+:root {
+    /* Color Palette - Son of Obsidian */
+    --amethyst-smoke: #8C8CB4;
+    --bright-red: #ff0000;
+    --cape-cod: #3f4e49;
+    --gold: #efc210;
+    --hampton: #e8e2b7;
+    --lavender: #A082BD;
+    --lightning-yellow: #ffcd22;
+    --malibu: #99daf9;
+    --mango: #ec7600;
+    --mantis: #93C763;
+    --nevada: #66747b;
+    --sage: #99a38a;
+    --ship-cove: #678CB1;
+    --solid-pink: #963a46;
+    --tacha: #d3d155;
+    
+    /* Light Colors */
+    --gallery: #f0f0f0;
+    --porcelain: #f1f2f3;
+
+    /* Grayscale Palette */
+    --dove-grey: #616161;    
+    --tundora: #474747;
+    --solid-grey: #808080;
+    --emperor: #505050;                    
+    --outer-space: #293134;
+    --shark: #22282a;
+
+    /* Theme Configuration */
+    --accent-color: var(--mantis);
+    --joplin-appearance: dark !important;
+
+    /* Core Joplin Variables */
+    --joplin-background-color: var(--outer-space) !important;
+    --joplin-color-correct: var(--mantis);
+    --joplin-color-error: var(--solid-pink) !important;
+    --joplin-color-warn: var(--mango) !important;
+    --joplin-color-warn2: var(--tacha) !important;
+    --joplin-color-warn3: var(--tacha) !important;
+    --joplin-color-warn-url: var(--lightning-yellow) !important;
+    --joplin-destructive-color: var(--bright-red);
+    --joplin-url-color: var(--ship-cove);
+    
+    /* Scrollbar Colors */
+    --joplin-scrollbar-thumb-color: rgba(103, 140, 177, 0.42) !important; /* Semi-transparent ship-cove */
+    --joplin-scrollbar-thumb-color-hover: rgba(153, 218, 249, 0.42) !important; /* Semi-transparent malibu */
+
+    /* Sidebar & Navigation */
+    --joplin-background-color-hover2: var(--cape-cod) !important;
+    --joplin-color2: var(--accent-color) !important;
+    --joplin-color-faded2: var(--emperor) !important;
+    --joplin-selected-color2: var(--tundora) !important;
+
+    /* Note List */
+    --joplin-background-color3: var(--shark) !important;
+    --joplin-background-color-hover3: var(--ship-cove) !important;
+    --joplin-color: var(--hampton) !important;
+    --joplin-color3: var(--accent-color) !important;
+    --joplin-divider-color: var(--tundora) !important;
+    --joplin-selected-color: var(--tundora) !important;
+}
+
+/* ==========================================================================
+   LAYOUT & STRUCTURE
+   ========================================================================== */
+
+/* Main Layout Components */
+.sidebar,
+.note-editor-wrapper,
+.note-editor-viewer-row,
+.note-title-wrapper {
+    background-color: var(--shark);
+}
+
+/* Resizable Layout Items */
+div.resizableLayoutItem {
+    &.rli-sideBar,
+    &.rli-noteList {
+        background-color: var(--outer-space);
+    }
+}
+
+/* ==========================================================================
+   SIDEBAR NAVIGATION
+   ========================================================================== */
+
+/* Section Headers */
+.icon-notebooks {
+    color: var(--mantis) !important;
+    
+    + span {
+        color: var(--mantis) !important;
+    }
+}
+
+.icon-tags {
+    color: var(--gold) !important;
+    
+    + span {
+        color: var(--gold) !important;
+    }
+}
+
+/* List Items - General Styling */
+.list-item-wrapper {
+    &:hover { 
+        background-color: rgba(63, 78, 73, 0.5) !important; /* Semi-transparent cape-cod */
+    }
+        
+    &.selected {
+        background-color: var(--cape-cod) !important;
+        border-left: 3px solid var(--mantis) !important;
+        color: var(--hampton) !important;
+    }
+}
+
+/* Notebook Items */
+a.list-item span.title {
+    color: var(--hampton) !important;
+    
+    &:hover { 
+        color: var(--mantis) !important;
+    }
+}
+
+/* Tag Items */
+.tag-label {
+    color: var(--hampton) !important;
+    
+    &:hover { 
+        color: var(--gold) !important;
+    }
+        
+    &.selected {
+        background-color: var(--cape-cod) !important;
+        color: var(--malibu) !important;
+    }
+}
+
+/* Selected Item Context-Based Styling */
+.sidebar-header-container {
+    /* Selected notebook items */
+    &:has(.icon-notebooks) ~ .list-item-wrapper.selected {
+        border-left-color: var(--mantis) !important;
+        
+        a.list-item span.title {
+            color: var(--mantis) !important;
+        }
+    }
+    
+    /* Selected tag items */
+    &:has(.icon-tags) ~ .list-item-wrapper.selected {
+        border-left-color: var(--gold) !important;
+        
+        a.list-item span:not(.title) {
+            color: var(--gold) !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   NOTE LIST
+   ========================================================================== */
+
+.note-list {
+    background-color: var(--outer-space);
+}
+
+.note-list-item {
+    /* Note title hover effect */
+    div.content div.title span:hover {
+        color: var(--malibu) !important;
+    }
+    
+    /* Hover and focus states */
+    &:hover,
+    &.-focus-visible > .content {
+        background-color: rgba(63, 78, 73, 0.5) !important; 
+    }
+
+    /* Separator line between notes */
+    &:before {
+        content: '' !important;
+        border-bottom: 1px solid var(--tundora) !important;
+        width: 100% !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0% !important;
+    }
+    
+    /* Selected note styling */
+    > .content.-selected {
+        background-color: var(--emperor) !important;
+        border-left: 2px solid var(--ship-cove) !important;
+        color: var(--hampton) !important;
+        
+        .title span {
+            color: var(--malibu) !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   EDITOR & TEXT CONTENT
+   ========================================================================== */
+
+/* CodeMirror Editor */
+.cm-editor {
+    color: var(--hampton) !important;
+    background-color: var(--shark) !important;
+    
+    .cm-selectionBackground {
+        background-color: var(--ship-cove) !important;
+    }
+}
+
+.cm-blockQuote {
+    opacity: 0.8 !important;
+    border-left: 4px solid var(--mango) !important;
+}
+
+/* Search Highlighting */
+.cm-search-marker {
+    background: var(--lightning-yellow) !important;
+}
+
+/* Header Hierarchy */
+.cm-header {
+    &.cm-h1,
+    &.cm-h2 { 
+        color: var(--mantis) !important; 
+    }
+    
+    &.cm-h3,
+    &.cm-h4 { 
+        color: var(--tacha) !important; 
+    }
+    
+    &.cm-h5 { 
+        color: var(--hampton) !important; 
+    }
+}
+
+/* Text Formatting Tokens */
+.tok-link {
+    color: var(--ship-cove) !important;
+    
+    &:visited { 
+        color: var(--lavender) !important; 
+    }
+    
+    &:hover { 
+        color: var(--malibu) !important; 
+    }
+}
+
+.tok-strong {
+    color: var(--tacha) !important;
+}
+
+.tok-emphasis {
+    color: var(--gold) !important;
+}
+
+.tok-meta {
+    color: var(--nevada) !important;
+}
+
+.tok-typeName, .tok-punctuation {
+    color: var(--ship-cove) !important;
+}
+
+/* ==========================================================================
+   FORM ELEMENTS & INPUTS
+   ========================================================================== */
+
+/* Title Input Field */
+input.title-input {
+    background-color: var(--shark) !important; 
+}
+
+/* Tag Note Buttons */
+.note-title-wrapper + div > button {
+    background-color: var(--emperor) !important;
+    
+    > span:nth-child(2) {
+        color: var(--malibu) !important;
+    }
+}
+
+/* ==========================================================================
+   ICONS & VISUAL ELEMENTS
+   ========================================================================== */
+
+/* Font Awesome Icons and Emoji */
+.fa, 
+.far, 
+.fas,
+.emoji-box {
+    color: var(--mantis) !important;
+}
+
+.fa, 
+.far, 
+.fas {
+    font-family: "Font Awesome 5 Free";
+}
+
+/* ==========================================================================
+   UTILITY & UI CLEANUP
+   ========================================================================== */
+
+/* Hide Unnecessary UI Elements */
+.sidebar-header-button,
+.new-note-todo-buttons,
+.editor-toolbar,
+.cm-gutters {
+    display: none !important;
+}
